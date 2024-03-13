@@ -192,17 +192,17 @@ friend(c).
 
 visit(X,Y) :- friend(X),friend(Y),not(X==Y),true(0.25).
 
-meetup :- visit(X,Z),visit(Y,Z),not(X==Y).
+meetup :- visit(X,Z),visit(Y,Z),not(X==Y),not(visit(Z,_Anyone)).
 
 :- sample(meetup,Probability).
-   Probability = 0.375
+   Probability = 0.21
 ```
 
 ### Example 3
 
 Natural language:
 
-> *There are three friends: a, b, and c. Each of them is independently plannning to visit each of the other two friends with a certain probability, or otherwise stay home. Since the probability that the three friends meet all together is 37.5%, what is the probability that each of them visit one of the others?*
+> *There are three friends: a, b, and c. Each of them is independently plannning to visit each of the other two friends with a certain probability, or otherwise stay home. Since the probability that the three friends meet all together is 21%, what is the probability that each of them visit one of the others?*
 
 Prolog:
 
@@ -214,18 +214,20 @@ visit(b,c).
 visit(c,a).
 visit(c,b).
 
-meetup :- visit(X,Z),visit(Y,Z),not(X==Y).
+meetup :- visit(X,Z),visit(Y,Z),not(X==Y),not(visit(Z,_Anyone)).
 
-:- learn(visit/2,[0.375-meetup]).
+:- learn(visit/2,[0.21-meetup]).
 
 % wide range of solutions (just one is reported here)
 :- sample(visit(X,Y),Probability).
-   X = a, Y = b, Probability = 0.23
-   X = a, Y = c, Probability = 0.37 
-   X = b, Y = a, Probability = 0.52
-   X = b, Y = c, Probability = 0.15
-   X = c, Y = a, Probability = 0.18
-   X = c, Y = b, Probability = 0.13
+   X = a, Y = b, Probability = 0.87
+   X = a, Y = c, Probability = 0.43 
+   X = b, Y = a, Probability = 0.91
+   X = b, Y = c, Probability = 0.42
+   X = c, Y = a, Probability = 0.59
+   X = c, Y = b, Probability = 0.34
+:- sample(meetup,Probability).
+   Probability = 0.20
 ```
 
 ## Further reading
