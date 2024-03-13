@@ -164,16 +164,16 @@ SLP:
 odd(Card) :- 1 is Card mod 2.
 double(Card1,Card2) :- Card1 is 2*Card2.
 
-card(_Deck,Card) :- between(1,10,Card),true(1/10). 
+card(_Deck,Card) :- random_between(1, 10, Card). 
 
-pick_pair :- 
+action :- 
    card(deck1,Card1),
    card(deck2,Card2),
    odd(Card1),
    double(Card1,Card2). 
 
 % of course...
-?- sample(pick_pair,Probability).
+?- sample(action,Probability).
    Probability = 0
 ```
 
