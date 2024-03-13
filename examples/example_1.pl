@@ -12,7 +12,7 @@ the first number is odd and is the double of the second number?
 odd(Card) :- 1 is Card mod 2.
 double(Card1,Card2) :- Card1 is 2*Card2.
 
-card(_Deck,Card) :- between(1,10,Card),true(1/10). 
+card(_Deck,Card) :- random_between(1,10,Card).
 
 pick_pair :- 
    card(deck1,Card1),
