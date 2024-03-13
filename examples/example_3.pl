@@ -16,8 +16,8 @@ visit(b,c).
 visit(c,a).
 visit(c,b).
 
-meetup :- visit(X,Z),visit(Y,Z),not(X==Y).
+meetup :- visit(X,Z),visit(Y,Z),not(X==Y),not(visit(Z,_Anyone)).
 
-% ?- learn(visit/2,[0.375-meetup]).
+% ?- learn(visit/2,[0.21-meetup]).
 % ?- sample(visit(X,Y),Probability).
-%   
+% ?- sample(meetup,Probability).
