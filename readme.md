@@ -49,11 +49,11 @@ coin(tail) :- not(coin(head)).
 Probabilities are sampled using the `sample/[2,3]` predicate. For example:
 
 ```prolog
-?- sample(coin(Coin),Probability). % toss 1 coin
+:- sample(coin(Coin),Probability). % toss 1 coin
    Coin = head, Probability = 0.5
    Coin = tail, Probability = 0.5
 
-?- sample((coin(Coin1),coin(Coin2)),Probability). % toss 2 coins
+:- sample((coin(Coin1),coin(Coin2)),Probability). % toss 2 coins
    Coin1 = head, Coin2 = head, Probability = 0.25
    Coin1 = head, Coin2 = tail, Probability = 0.25
    Coin1 = tail, Coin2 = head, Probability = 0.25
@@ -92,11 +92,11 @@ That's it. Now we can query the given questions through sampling as follows:
 
 ```prolog
 % probability of an epidemic 
-?- sample(epidemic,Probability).
+:- sample(epidemic,Probability).
    Probability = 0.42
 
 % probability of a pandemic 
-?- sample(pandemic,Probability).
+:- sample(pandemic,Probability).
    Probability = 0.21
 ```
 
@@ -127,7 +127,7 @@ As you can see, we have no information about the probability of individual ABO g
 Now let's assume we know the final probability (e.g., observation frequency) of the blood types a, ab, b, and o (for example: 40%, 10%, 20%, and 30%, respectively). We can train the `gene/1` predicate so that we correctly predict the observed blood types frequency as follows:
 
 ```prolog
-?- learn(gene/1,[
+:- learn(gene/1,[
         0.40-bloodtype(a), 
         0.10-bloodtype(ab), 
         0.20-bloodtype(b), 
@@ -150,7 +150,7 @@ Please see the Prolog source code of the SLP library for more detailed informati
 
 ## Other examples
 
-Here I provide few examples with problems expressed both in natural language and in SLP. I have crafted problems for which several large language models (LLMs) would often fail to provide correct responses (I haven't attempted "prompt engineering", as the outcome might depend on subtleties).
+Here I provide few examples with problems expressed both in natural language and in Prolog. I have crafted problems for which several large language models (LLMs) would often fail to provide correct responses (I haven't attempted "prompt engineering", as the outcome might depend on subtleties).
 
 ### Example 1
 
@@ -158,7 +158,7 @@ Natural language:
 
 > *You have two well-shuffled card decks. Each deck contains 10 cards with distinct numbers from 1 to 10. You pick a card from the first deck and a card from the second deck. What is the probability of picking up two cards such that the first number is odd and is the double of the second number?*
 
-SLP:
+Prolog:
 
 ```prolog
 odd(Card) :- 1 is Card mod 2.
@@ -173,7 +173,7 @@ action :-
    double(Card1,Card2). 
 
 % of course...
-?- sample(action,Probability).
+:- sample(action,Probability).
    Probability = 0
 ```
 
@@ -183,7 +183,7 @@ Natural language:
 
 > *There are three friends: a, b, and c. Each of them is independently plannning to visit each of the other two friends with a 25% probability, or otherwise stay home. What is the probability that the three friends will meet all together?*
 
-SLP:
+Prolog:
 
 ```prolog
 friend(a).
@@ -194,7 +194,7 @@ visit(X,Y) :- friend(X),friend(Y),not(X==Y),true(0.25).
 
 meetup :- visit(X,Z),visit(Y,Z),not(X==Y).
 
-?- sample(meetup,Probability).
+:- sample(meetup,Probability).
    Probability = 0.375
 ```
 
@@ -204,7 +204,7 @@ Natural language:
 
 > *There are three friends: a, b, and c. Each of them is independently plannning to visit each of the other two friends with a certain probability, or otherwise stay home. Since the probability that the three friends meet all together is 37.5%, what is the probability that each of them visit one of the others?*
 
-SLP:
+Prolog:
 
 ```prolog
 visit(a,b).
@@ -216,10 +216,10 @@ visit(c,b).
 
 meetup :- visit(X,Z),visit(Y,Z),not(X==Y).
 
-?- learn(visit/2,[0.375-meetup]).
+:- learn(visit/2,[0.375-meetup]).
 
 % wide range of solutions (just one is reported here)
-?- sample(visit(X,Y),Probability).
+:- sample(visit(X,Y),Probability).
    X = a, Y = b, Probability = 0.23
    X = a, Y = c, Probability = 0.37 
    X = b, Y = a, Probability = 0.52
