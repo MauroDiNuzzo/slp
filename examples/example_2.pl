@@ -14,7 +14,7 @@ friend(c).
 
 visit(X,Y) :- friend(X),friend(Y),not(X==Y),true(0.25).
 
-meetup :- visit(X,Z),visit(Y,Z),not(X==Y).
+meetup :- visit(X,Z),visit(Y,Z),not(X==Y),not(visit(Z,_Anyone)).
 
 %   ?- sample(meetup,Probability).
-%   Probability = 0.375
+%   Probability = 0.21
