@@ -2,7 +2,7 @@
 
 This lightweight library is currently just an excercise for experimenting in simplicity/readability of SLP while strictly remaining in standard Prolog.
 
-Actually, I quickly wrote this library to support an argument for a blog post. If interested in contributing, please feel free to reach out on Linkedin (<https://www.linkedin.com/in/mauro-dinuzzo/>).
+If you're interested in contributing, please feel free to reach out on Linkedin (<https://www.linkedin.com/in/mauro-dinuzzo/>).
 
 **DISCLAIMER**: USE FOR EDUCATIONAL PURPOSES ONLY.
 
